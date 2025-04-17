@@ -127,7 +127,7 @@ local function myBeloved()
         local user = assert(_K.auth.userInfo(me.uid));
 
         local hostfile = assert(open("/etc/hostname", "r"));
-        local hostname = assert(read(hostfile, math.huge));
+        local hostname = string.gsub(assert(read(hostfile, math.huge)), "\n", "");
         assert(close(hostfile));
 
         write(stdout, string.format(
