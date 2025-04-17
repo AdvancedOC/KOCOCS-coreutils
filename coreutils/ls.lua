@@ -54,8 +54,7 @@ end
 
 local ok, err = xpcall(main, debug.traceback, arg);
 if not ok then
-    write(0, err)
-    write(0, "\n")
+    write(0, err .. "\n");
     assert(exit(1));
 end
 assert(exit(err or 0));
