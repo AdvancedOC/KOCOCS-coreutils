@@ -1,1 +1,1 @@
-## Root fs for KOCOS
+## Coreutils for KOCOS
