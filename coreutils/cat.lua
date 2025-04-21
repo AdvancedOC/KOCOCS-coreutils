@@ -41,7 +41,7 @@ local function main(argv)
             write(0, assert(read(file, math.huge)));
             assert(close(file));
         else
-            write(0, string.format("cat: %s: Is a directory", path));
+            write(2, string.format("cat: %s: Is a directory", path));
         end
         ::continue::
     end
@@ -49,7 +49,7 @@ end
 
 local ok, err = xpcall(main, debug.traceback, arg);
 if not ok then
-    write(0, err .. "\n");
+    write(2, err .. "\n");
     assert(exit(1));
 end
 assert(exit(err or 0));
