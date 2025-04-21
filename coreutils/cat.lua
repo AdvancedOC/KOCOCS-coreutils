@@ -38,7 +38,13 @@ local function main(argv)
         end
         if ftype(path) == "file" then
             local file = assert(open(path, "r"));
-            write(0, assert(read(file, math.huge)));
+            while true do
+                local chunk, err = read(file, math.huge);
+                if err then error(err) end
+                if not chunk then break end
+                write(0, chunk);
+                coroutine.yield();
+            end
             assert(close(file));
         else
             write(2, string.format("cat: %s: Is a directory", path));
