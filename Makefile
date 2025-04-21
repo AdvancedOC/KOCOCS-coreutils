@@ -8,5 +8,6 @@ rootfs:
 	mkdir rootfs/tmp
 	echo "computer" > rootfs/etc/hostname
 	cp coreutils/* rootfs/bin/
+	cp extra/* rootfs/bin/
 clean:
 	rm -r rootfs
