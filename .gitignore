@@ -1,4 +1,3 @@
 rootfs/
 rootfs/*
-build/
-build/*
+build/*.o

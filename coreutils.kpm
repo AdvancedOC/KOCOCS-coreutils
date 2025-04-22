@@ -1,0 +1,27 @@
+{
+    name = "coreutils",
+    author = "calion",
+    version = "0.0.1",
+    files = {
+        ["/bin/ls"] = "build/ls",
+        ["/bin/cat"] = "build/cat",
+        ["/bin/touch"] = "build/touch",
+        ["/bin/whoami"] = "build/whoami",
+        ["/bin/shutdown"] = "build/shutdown",
+        ["/bin/sleep"] = "build/sleep",
+        ["/bin/yes"] = "build/yes",
+        ["/bin/clear"] = "build/clear",
+        ["/bin/format"] = "build/format",
+        ["/bin/stat"] = "build/stat",
+        ["/bin/mkdir"] = "build/mkdir",
+        ["/bin/su"] = "build/su",
+        ["/bin/mount"] = "build/mount",
+        ["/bin/sleep"] = "build/sleep",
+    },
+    extraFiles = {},
+    keepFiles = {},
+    dependencies = {
+        "other",
+    },
+    postInstall = {},
+}

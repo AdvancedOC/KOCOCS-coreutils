@@ -1,0 +1,57 @@
+KELPv1
+E@deps
+E
+/lib/liblua.so@sourcemap
+1F
+main=./rootfs/coreutils/cat.luamain
+50C
+local function write(fd, data)
+    local err = syscall("write", fd, data)
+    return err == nil, err
+end
+
+local function exit(status)
+    -- WILL NEVER RETURN IF IT WORKED
+    local err = syscall("exit", status)
+    return err == nil, err
+end
+
+local function ftype(path)
+    local err, x = syscall("ftype", path)
+    return x, err
+end
+
+local function read(fd, len)
+    local err, data = syscall("read", fd, len)
+    return data, err
+end
+
+local function main(argv)
+    for i = 1, #argv do
+        local path = argv[i];
+        if path == "-" then
+            write(0, assert(read(0, math.huge)));
+            goto continue;
+        end
+        if io.exists(path) then
+            local type = io.ftype(path)
+            if type == "file" then
+                local file = assert(io.open(path, "r"));
+                write(0, file:read("*all"));
+                file:close();
+            elseif type == "directory" then
+                write(2, string.format("cat: %s: Is a directory", path));
+            end
+        else
+            write(2, string.format("cat: %s: No such file or directory\n", path));
+        end
+        ::continue::
+    end
+end
+
+local ok, err = xpcall(main, debug.traceback, arg);
+if not ok then
+    write(2, err .. "\n");
+    assert(exit(1));
+end
+assert(exit(err or 0));
