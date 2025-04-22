@@ -11,8 +11,8 @@ local function exit(status)
     return err == nil, err
 end
 write(0, "\x1b[2J");
-assert(exit(0));@deps
-E
-/lib/liblua.so@sourcemap
+assert(exit(0));@sourcemap
 21
-main=./rootfs/coreutils/clear.lua
+main=./rootfs/coreutils/clear.lua@deps
+E
+/lib/liblua.so

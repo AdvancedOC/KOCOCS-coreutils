@@ -1,6 +1,8 @@
 KELPv1
-Emain
-9A1
+E@sourcemap
+1D
+main=./rootfs/extra/kterm.luamain
+9BC
 local function write(fd, data)
     local err = syscall("write", fd, data)
     return err == nil, err
@@ -40,7 +42,8 @@ if arg[1] == "-c" then
     table.remove(arg, 1);
     
     local command = string.split(table.remove(arg, 1), " ");
-    local path = io.searchpath(table.remove(command, 1));
+    local thingy = table.remove(command, 1);
+    local path = io.searchpath(thingy);
     if path then
         local child = assert(pspawn(path, {
             args = command
@@ -112,8 +115,6 @@ USER@HOSTNAME CWD
     coroutine.yield()
     ::continue::
 end
-@sourcemap
-1D
-main=./rootfs/extra/kterm.lua@deps
+@deps
 E
 /lib/liblua.so

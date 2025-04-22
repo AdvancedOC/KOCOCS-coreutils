@@ -1,7 +1,5 @@
 KELPv1
-E@sourcemap
-20
-main=./rootfs/coreutils/stat.luamain
+Emain
 4DF
 local function write(fd, data)
     local err = syscall("write", fd, data)
@@ -42,6 +40,8 @@ if not ok then
     write(2, err .. "\n");
     assert(exit(1));
 end
-assert(exit(err or 0));@deps
+assert(exit(err or 0));@sourcemap
+20
+main=./rootfs/coreutils/stat.lua@deps
 E
 /lib/liblua.so

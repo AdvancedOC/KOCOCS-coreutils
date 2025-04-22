@@ -37,7 +37,8 @@ if arg[1] == "-c" then
     table.remove(arg, 1);
     
     local command = string.split(table.remove(arg, 1), " ");
-    local path = io.searchpath(table.remove(command, 1));
+    local thingy = table.remove(command, 1);
+    local path = io.searchpath(thingy);
     if path then
         local child = assert(pspawn(path, {
             args = command
