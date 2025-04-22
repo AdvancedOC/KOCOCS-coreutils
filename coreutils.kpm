@@ -20,8 +20,6 @@
     },
     extraFiles = {},
     keepFiles = {},
-    dependencies = {
-        "other",
-    },
+    dependencies = {},
     postInstall = {},
 }
