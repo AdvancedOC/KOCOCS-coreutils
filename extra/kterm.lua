@@ -28,9 +28,9 @@ local function hostname(hostname)
     return x, err
 end
 
-local function pinfo(pid)
-    local err, x = syscall("pinfo", pid);
-    return x, err
+local function pexit(pid)
+    local err = syscall("pexit", pid)
+    return err == nil, err
 end
 
 if arg[1] == "-c" then
@@ -44,6 +44,7 @@ if arg[1] == "-c" then
             args = command
         }));
         syscall("pawait", child);
+        pexit(child);
         os.exit();
     else
         write(2, string.format("%s doesnt exists in search path\n", thingy));
@@ -102,6 +103,7 @@ USER@HOSTNAME CWD
         }));
         syscall("pawait", child);
         status = assert(pinfo(child)).status;
+        pexit(child);
     else
         write(0, string.format("\x1b[0mkterm: Unknown command: %s\n\x1b[0m", cmd));
         _OS.computer.beep();
