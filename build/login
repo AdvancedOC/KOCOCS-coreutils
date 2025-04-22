@@ -1,7 +1,5 @@
 KELPv1
-E@deps
-E
-/lib/liblua.so@sourcemap
+E@sourcemap
 1C
 main=./rootfs/util/login.luamain
 14DA
@@ -219,3 +217,6 @@ while true do
 
     coroutine.yield()
 end
+@deps
+E
+/lib/liblua.so

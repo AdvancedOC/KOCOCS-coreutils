@@ -53,8 +53,8 @@ if not ok then
     write(2, err .. "\n");
     assert(os.exit(1));
 end
-assert(os.exit(err or 0));@sourcemap
-19
-main=./rootfs/util/su.lua@deps
+assert(os.exit(err or 0));@deps
 E
-/lib/liblua.so
+/lib/liblua.so@sourcemap
+19
+main=./rootfs/util/su.lua

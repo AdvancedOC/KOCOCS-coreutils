@@ -35,11 +35,11 @@ end
 
 if arg[1] == "-c" then
     table.remove(arg, 1);
-    local thingy = table.remove(arg, 1);
-    local path = io.searchpath(thingy);
+    local command = string.split(table.remove(arg, 1), " ");
+    local path = io.searchpath(table.remove(command, 1));
     if path then
         local child = assert(pspawn(path, {
-            args = arg
+            args = command
         }));
         syscall("pawait", child);
         os.exit();
