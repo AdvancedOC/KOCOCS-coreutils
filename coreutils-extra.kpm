@@ -1,0 +1,15 @@
+{
+    name = "coreutils-extra",
+    author = "calion",
+    version = "0.0.1",
+    files = {
+        ["/bin/kfetch"] = "build/lkfetch",
+        ["/bin/kterm"] = "build/kterm",
+        ["/bin/sh"] = "build/kterm",
+        ["/bin/login"] = "build/login",
+    },
+    extraFiles = {},
+    keepFiles = {},
+    dependencies = {},
+    postInstall = {},
+}
