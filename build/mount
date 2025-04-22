@@ -1,5 +1,7 @@
 KELPv1
-E@deps
+E@sourcemap
+1C
+main=./rootfs/util/mount.lua@deps
 E
 /lib/liblua.somain
 366
@@ -36,6 +38,4 @@ if not ok then
     write(2, err .. "\n");
     assert(exit(1));
 end
-assert(exit(err or 0));@sourcemap
-1C
-main=./rootfs/util/mount.lua
+assert(exit(err or 0));

@@ -35,6 +35,7 @@ end
 
 if arg[1] == "-c" then
     table.remove(arg, 1);
+    
     local command = string.split(table.remove(arg, 1), " ");
     local path = io.searchpath(table.remove(command, 1));
     if path then
