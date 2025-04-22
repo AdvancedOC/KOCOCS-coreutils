@@ -28,16 +28,27 @@ local function hostname(hostname)
     return x, err
 end
 
+local function pinfo(pid)
+    local err, x = syscall("pinfo", pid);
+    return x, err
+end
+
 if arg[1] == "-c" then
-    local path = io.searchpath(arg[2]);
+    table.remove(arg, 1);
+    local path = io.searchpath(table.remove(arg, 1));
     if path then
-        local child = assert(pspawn(path, {}));
+        local child = assert(pspawn(path, {
+            args = arg
+        }));
         syscall("pawait", child);
+        os.exit();
     else
         write(2, string.format("%s doesnt exists dumb\n", path));
+        os.exit(1);
     end
 end
 
+local status = 0;
 while true do
     local me = assert(pinfo(assert(pself())));
     local user = "";
@@ -50,11 +61,15 @@ while true do
     end
 
     write(0, string.format(
-        "\x1b[0m\x1b[32m%s\x1b[0m@%s \x1b[32m%s\n❯ \x1b[0m",
+        "\x1b[0m\x1b[32m%s\x1b[0m@%s \x1b[32m%s",
         user,
         hostname(),
         io.cwd()
     ));
+    if status ~= 0 then
+        write(0, " \x1b[31m[" .. tostring(status) .. "]\x1b[32m ");
+    end
+    write(0, "\n❯ \x1b[0m");
 
     local line = io.read("l");
     local args = string.split(line, " ");
@@ -83,6 +98,7 @@ USER@HOSTNAME CWD
             args = args
         }));
         syscall("pawait", child);
+        status = assert(pinfo(child)).status;
     else
         write(0, string.format("\x1b[0mkterm: Unknown command: %s\n\x1b[0m", cmd));
         _OS.computer.beep();
