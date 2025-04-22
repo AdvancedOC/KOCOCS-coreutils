@@ -82,6 +82,11 @@ local function hostname(hostname)
     return x, err
 end
 
+local function ftype(path)
+    local err, x = syscall("ftype", path)
+    return x, err
+end
+
 -- local programOut = assert(mopen("w", "", math.huge))
 -- local programIn = assert(mopen("w", "", math.huge))
 -- local stdout = assert(mkpipe(programIn, programOut))
@@ -99,6 +104,16 @@ local function readLine()
         else
             coroutine.yield()
         end
+    end
+end
+
+if arg[1] == "-c" then
+    local path = io.searchpath(arg[2], nil, nil, nil, nil);
+    if path == nil or ftype(path) == "missing" then
+        write(2, string.format("%s doesnt exists dumb\n", path));
+    else
+        local child = assert(pspawn(path, {}));
+        syscall("pawait", child);
     end
 end
 
@@ -135,7 +150,7 @@ calion@calion-Computer ~/Programming/KOCOS (main)
 USER@HOSTNAME CWD
 ❯
 ]]
-    local path = "/bin/" .. cmd .. ".lua"; -- TODO: Respect PATH env
+    local path = "/bin/" .. cmd; -- TODO: Respect PATH env
     local temp = open(path, "r");
     if temp ~= nil then
         close(temp);

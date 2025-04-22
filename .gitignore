@@ -1,2 +1,4 @@
 rootfs/
 rootfs/*
+build/
+build/*

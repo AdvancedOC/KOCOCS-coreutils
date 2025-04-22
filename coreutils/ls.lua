@@ -132,7 +132,8 @@ local function main(argv)
     local arg_l = false;
     local arg_a = false;
 
-    for i = 1, #argv do
+    local i = 0;
+    while argv[i] ~= nil do
         local thing = argv[i];
         if string.startswith(thing, "-") and #thing > 1 then
             thing = string.sub(table.remove(argv, i), 2);
@@ -150,6 +151,8 @@ local function main(argv)
                 end
                 thing = string.sub(thing, 2);
             end
+        else
+            i = i + 1;
         end
     end
 

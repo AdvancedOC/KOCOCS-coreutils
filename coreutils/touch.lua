@@ -10,7 +10,6 @@ local function exit(status)
 end
 
 local function touch(path, perms)
-    -- WILL NEVER RETURN IF IT WORKED
     local err = syscall("touch", path, perms)
     return err == nil, err
 end

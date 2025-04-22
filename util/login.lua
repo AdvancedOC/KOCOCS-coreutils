@@ -140,7 +140,7 @@ local function myBeloved()
             write(0, "\x1b[0m");
 
             login(user, 0, password);
-            local child = assert(pspawn("/bin/kterm.lua", {
+            local child = assert(pspawn("/bin/sh", {
                 args = {},
                 fdMap = {
                     [0] = 0,
