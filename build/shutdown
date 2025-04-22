@@ -1,8 +1,8 @@
 KELPv1
-E@deps
-E
-/lib/liblua.so@sourcemap
+E@sourcemap
 20
-main=./rootfs/extra/shutdown.luamain
+main=./rootfs/extra/shutdown.lua@deps
+E
+/lib/liblua.somain
 17
 _OS.computer.shutdown()
