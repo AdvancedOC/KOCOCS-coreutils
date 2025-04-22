@@ -1,5 +1,9 @@
 KELPv1
-Emain
+E@deps
+E
+/lib/liblua.so@sourcemap
+1D
+main=./rootfs/extra/kterm.luamain
 94B
 local function write(fd, data)
     local err = syscall("write", fd, data)
@@ -110,8 +114,3 @@ USER@HOSTNAME CWD
     coroutine.yield()
     ::continue::
 end
-@deps
-E
-/lib/liblua.so@sourcemap
-1D
-main=./rootfs/extra/kterm.lua
