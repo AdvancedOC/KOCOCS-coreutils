@@ -17,6 +17,8 @@
         ["/bin/su"] = "build/su",
         ["/bin/mount"] = "build/mount",
         ["/bin/sleep"] = "build/sleep",
+        ["/bin/rm"] = "build/rm",
+        ["/bin/cp"] = "build/cp",
     },
     extraFiles = {},
     keepFiles = {},
