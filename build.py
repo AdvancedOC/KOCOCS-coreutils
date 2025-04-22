@@ -1,4 +1,9 @@
-import os, shutil
+import os, shutil, subprocess
+with open("/etc/hostname", "r") as f:
+    if f.read() != "calion-Computer\n":
+        print("TODO: Make the build system work for others")
+        exit(1)
+
 os.chdir("../")
 if os.path.isdir("./rootfs/build"): shutil.rmtree("./rootfs/build")
 os.mkdir("./rootfs/build")
