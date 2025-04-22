@@ -35,7 +35,8 @@ end
 
 if arg[1] == "-c" then
     table.remove(arg, 1);
-    local path = io.searchpath(table.remove(arg, 1));
+    local thingy = table.remove(arg, 1);
+    local path = io.searchpath(thingy);
     if path then
         local child = assert(pspawn(path, {
             args = arg
@@ -43,7 +44,7 @@ if arg[1] == "-c" then
         syscall("pawait", child);
         os.exit();
     else
-        write(2, string.format("%s doesnt exists dumb\n", path));
+        write(2, string.format("%s doesnt exists in search path\n", thingy));
         os.exit(1);
     end
 end

@@ -1,7 +1,5 @@
 KELPv1
-E@deps
-E
-/lib/liblua.so@sourcemap
+E@sourcemap
 1E
 main=./rootfs/coreutils/ls.luamain
 15B1
@@ -197,4 +195,6 @@ if not ok then
     write(2, err .. "\n");
     assert(exit(1));
 end
-assert(exit(err or 0));
+assert(exit(err or 0));@deps
+E
+/lib/liblua.so
