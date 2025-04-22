@@ -14,11 +14,6 @@ local function mkdir(path, perms)
     return err == nil, err
 end
 
-local function ftype(path)
-    local err, x = syscall("ftype", path)
-    return x, err
-end
-
 local function main(argv)
     local arg_p = false;
 
@@ -55,7 +50,7 @@ local function main(argv)
             write(0, "fuck you idk how to make p work\n");
             return 1;
         else
-            assert(mkdir(argv[i], (2^16)-1));
+            assert(io.mkdir(argv[i], (2^16)-1));
         end
     end
 end

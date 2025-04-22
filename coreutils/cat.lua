@@ -19,16 +19,6 @@ local function read(fd, len)
     return data, err
 end
 
-local function open(path, mode)
-    local err, fd = syscall("open", path, mode)
-    return fd, err
-end
-
-local function close(fd)
-    local err = syscall("close", fd)
-    return err == nil, err
-end
-
 local function main(argv)
     for i = 1, #argv do
         local path = argv[i];
@@ -36,18 +26,17 @@ local function main(argv)
             write(0, assert(read(0, math.huge)));
             goto continue;
         end
-        if ftype(path) == "file" then
-            local file = assert(open(path, "r"));
-            while true do
-                local chunk, err = read(file, math.huge);
-                if err then error(err) end
-                if not chunk then break end
-                write(0, chunk);
-                coroutine.yield();
+        if io.exists(path) then
+            local type = io.ftype(path)
+            if type == "file" then
+                local file = assert(io.open(path, "r"));
+                write(0, file:read("*all"));
+                file:close();
+            elseif type == "directory" then
+                write(2, string.format("cat: %s: Is a directory", path));
             end
-            assert(close(file));
         else
-            write(2, string.format("cat: %s: Is a directory", path));
+            write(2, string.format("cat: %s: No such file or directory\n", path));
         end
         ::continue::
     end

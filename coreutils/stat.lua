@@ -16,7 +16,7 @@ end
 
 local function main(argv)
     for i=1,#argv do
-        local info = assert(stat(argv[i]))
+        local info = assert(stat(assert(io.resolved(argv[i]))))
 
         write(0, argv[i] .. "\n");
         write(0, "\tType: " .. info.type .. "\n");

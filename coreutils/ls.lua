@@ -48,21 +48,23 @@ local function perms_decode(num)
 end
 
 local function main(argv)
-    local function do_thing(path, arg_l, arg_a)
-        local stuff = assert(list(path));
+    local function do_thing(path, arg_l, arg_a, arg_h)
+        local real_path = io.resolved(path);
+        local stuff = assert(list(real_path));
         table.insert(stuff, 1, "../");
         table.insert(stuff, 1, "./");
         for i = 1, #stuff do
+            local real_file_path = real_path .. "/" .. stuff[i];
             if string.startswith(stuff[i], ".") and not arg_a then
                 goto continue
             end
 
-            local type = assert(ftype(stuff[i]));
+            local type = assert(io.ftype(real_file_path));
             if arg_l then
-                local info = assert(stat(stuff[i]));
+                local info = assert(stat(real_file_path));
                 local inos = 1;
                 if type == "directory" then
-                    local contents = assert(list(stuff[i]));
+                    local contents = assert(list(real_file_path));
                     inos = 2 + #contents;
                 end
                 local user, userRW, group, groupRW = perms_decode(info.perms);
@@ -71,14 +73,14 @@ local function main(argv)
                 elseif user == 63 then
                     user = "all"
                 else
-                    user = assert(uinfo(user));
+                    user = assert(uinfo(user)).name;
                 end
                 if group == 0 then
                     group = "root";
                 elseif group == 63 then
                     group = "all"
                 else
-                    group = assert(uginfo(group));
+                    group = assert(uginfo(group)).name;
                 end
 
                 local perms = ""
@@ -107,7 +109,13 @@ local function main(argv)
                 end
 
                 -- TODO: Sometimes ls shows year instead of time
-                write(0, string.format("%s %d %s %s %d %s ", perms, inos, user, group, info.size, os.date("%b %d %X", info.mtime)));
+                write(0, string.format("%s %d %s %s ", perms, inos, user, group));
+                if arg_h then
+                    write(0, string.memformat(info.size) .. " ");
+                else
+                    write(0, tonumber(info.size) .. " ");
+                end
+                write(0, os.date("%b %d %X", info.mtime) .. " ");
             end
 
             if type == "directory" then
@@ -131,6 +139,7 @@ local function main(argv)
 
     local arg_l = false;
     local arg_a = false;
+    local arg_h = false;
 
     local i = 0;
     while argv[i] ~= nil do
@@ -144,7 +153,7 @@ local function main(argv)
                 elseif char == "a" then
                     arg_a = true;
                 elseif char == "h" then
-                    write(2, string.format("ls: h is unsupported\n"));
+                    arg_h = true;
                 else
                     write(2, string.format("ls: invalid option -- '%s'\nTry 'ls --help' for more information\n", char));
                     return 1;
@@ -157,20 +166,20 @@ local function main(argv)
     end
 
     if #argv == 0 then
-        argv[1] = "/"; -- TODO: Cwd
+        argv[1] = io.cwd();
     end
 
     if #argv == 1 then
         local type = assert(ftype(argv[1]));
         if type ~= "file" then
-            do_thing(argv[1], arg_l, arg_a);
+            do_thing(argv[1], arg_l, arg_a, arg_h);
         end
     else
         for i = 1, #argv do
             local type = assert(ftype(argv[i]));
             if type ~= "file" then
                 write(0, argv[i] .. ":\n");
-                do_thing(argv[i], arg_l, arg_a);
+                do_thing(argv[i], arg_l, arg_a, arg_h);
             end
         end
     end
