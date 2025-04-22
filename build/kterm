@@ -115,8 +115,8 @@ USER@HOSTNAME CWD
     coroutine.yield()
     ::continue::
 end
-@deps
-E
-/lib/liblua.so@sourcemap
+@sourcemap
 1D
-main=./rootfs/extra/kterm.lua
+main=./rootfs/extra/kterm.lua@deps
+E
+/lib/liblua.so

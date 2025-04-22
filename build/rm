@@ -1,8 +1,10 @@
 KELPv1
-E@sourcemap
-21
-main=./rootfs/coreutils/mkdir.luamain
-6DF
+E@deps
+E
+/lib/liblua.so@sourcemap
+1E
+main=./rootfs/coreutils/rm.luamain
+6AA
 local function write(fd, data)
     local err = syscall("write", fd, data)
     return err == nil, err
@@ -14,13 +16,30 @@ local function exit(status)
     return err == nil, err
 end
 
-local function mkdir(path, perms)
-    local err = syscall("mkdir", path, perms)
+local function remove(proc, path)
+    local err = syscall("remove", path)
     return err == nil, err
 end
 
+local function rm(path)
+    local type = io.ftype(path);
+    if type == "file" then
+        assert(os.remove(path))
+    elseif type == "directory" then
+        if #io.list(path) == 0 then
+            assert(os.remove(path))
+        else
+            for _, file in ipairs(io.list(path)) do
+                local filepath = path .. "/" .. file;
+                rm(filepath);
+            end
+            assert(os.remove(path))
+        end
+    end
+end
+
 local function main(argv)
-    local arg_p = false;
+    local arg_r = false;
 
     local i = 0;
     while argv[i] ~= nil do
@@ -29,10 +48,10 @@ local function main(argv)
             thing = string.sub(table.remove(argv, i), 2);
             while #thing > 0 do
                 local char = thing:sub(1, 1);
-                if char == "p" then
-                    arg_p = true;
+                if char == "r" then
+                    arg_r = true;
                 else
-                    write(2, string.format("mkdir: invalid option -- '%s'\nTry 'ls --help' for more information\n", char));
+                    write(2, string.format("rm: invalid option -- '%s'\nTry 'ls --help' for more information\n", char));
                     return 1;
                 end
                 thing = string.sub(thing, 2);
@@ -43,20 +62,7 @@ local function main(argv)
     end
 
     for i = 1, #argv do
-        if arg_p then
-            -- local splits = string.split(argv[i], "/");
-            -- local path = splits[1];
-            -- for j = 1, #splits - 1 do
-            --     if ftype(path) == "missing" then
-            --         assert(mkdir(path, (2^16)-1));
-            --     end
-            --     path = path .. "/" .. splits[j];
-            -- end
-            write(0, "fuck you idk how to make p work\n");
-            return 1;
-        else
-            assert(io.mkdir(argv[i], (2^16)-1));
-        end
+        rm(argv[i]);
     end
 end
 
@@ -65,6 +71,4 @@ if not ok then
     write(2, err .. "\n");
     assert(exit(1));
 end
-assert(exit(err or 0));@deps
-E
-/lib/liblua.so
+assert(exit(err or 0));

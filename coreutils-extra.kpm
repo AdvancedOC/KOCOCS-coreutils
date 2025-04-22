@@ -11,5 +11,4 @@
     extraFiles = {},
     keepFiles = {},
     dependencies = {},
-    postInstall = {},
 }
