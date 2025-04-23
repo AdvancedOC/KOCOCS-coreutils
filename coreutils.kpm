@@ -1,7 +1,7 @@
 {
     name = "coreutils",
     author = "calion",
-    version = "0.0.1",
+    version = "0.0.2",
     files = {
         ["/bin/ls"] = "build/ls",
         ["/bin/cat"] = "build/cat",
@@ -19,6 +19,7 @@
         ["/bin/sleep"] = "build/sleep",
         ["/bin/rm"] = "build/rm",
         ["/bin/cp"] = "build/cp",
+        ["/bin/klc"] = "build/klc",
     },
     extraFiles = {},
     keepFiles = {},
