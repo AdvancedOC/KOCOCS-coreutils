@@ -72,23 +72,6 @@ local function login(user, ring, password)
     return x, err
 end
 
-local logPid
-
-do
-    local attempt = assert(pnext())
-    while true do
-        local info = assert(pinfo(attempt))
-        if info.cmdline == "OS:logproc" then
-            logPid = attempt
-            break
-        end
-        attempt = pnext(attempt)
-        if not attempt then break end
-    end
-end
-
-syscall("pwait", logPid)
-
 local tty = _K.tty.create(_OS.component.gpu, _OS.component.screen)
 tty:clear();
 
@@ -125,7 +108,7 @@ local function myBeloved()
 
     while true do
         if state == "username" then
-            write(0, string.format("%s login: ", hostname()));
+            write(stdout, string.format("%s login: ", hostname()));
             local username = readLine();
             user = ufindUser(username);
             if user ~= nil then
@@ -134,17 +117,17 @@ local function myBeloved()
                 write(0, "bruh\n");
             end
         elseif state == "password" then
-            write(0, "Password: \x1b[28m");
+            write(stdout, "Password: \x1b[28m");
             password = readLine();
-            write(0, "\x1b[0m");
+            write(stdout, "\x1b[0m");
 
             login(user, 0, password);
             local child = assert(pspawn("/bin/sh", {
                 args = {},
                 fdMap = {
-                    [0] = 0,
+                    [0] = stdout,
                     [1] = stdin,
-                    [2] = 2,
+                    [2] = stdout,
                 }
             }));
             syscall("pawait", child); -- Shouldnt exit?
