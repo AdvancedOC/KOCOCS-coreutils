@@ -87,7 +87,6 @@ do
     end
 end
 
-assert(logPid, "log pid failed")
 syscall("pwait", logPid)
 
 local tty = _K.tty.create(_OS.component.gpu, _OS.component.screen)
