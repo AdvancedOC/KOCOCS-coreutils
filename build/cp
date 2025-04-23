@@ -1,9 +1,9 @@
 KELPv1
 E@deps
-E
-/lib/liblua.so@sourcemap
-1E
-main=./rootfs/coreutils/cp.luamain
+13
+../tools//liblua.so@sourcemap
+17
+main=./coreutils/cp.luamain
 1AB
 -- Simplified cp for now
 -- No recursion and only for files

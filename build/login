@@ -1,9 +1,9 @@
 KELPv1
 E@deps
-E
-/lib/liblua.so@sourcemap
-1C
-main=./rootfs/util/login.luamain
+13
+../tools//liblua.so@sourcemap
+15
+main=./util/login.luamain
 14B9
 local function listen(f, id)
     local err, eid = syscall("listen", f, id)

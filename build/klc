@@ -1,10 +1,10 @@
 KELPv1
 E@deps
-1E
-/lib/liblua.so
-/lib/libkelp.so@sourcemap
-1F
-main=./rootfs/coreutils/klc.luamain
+28
+../tools//liblua.so
+../tools//libkelp.so@sourcemap
+18
+main=./coreutils/klc.luamain
 6E4
 local kelp = require("kelp")
 

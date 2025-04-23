@@ -1,9 +1,9 @@
 KELPv1
 E@deps
-E
-/lib/liblua.so@sourcemap
-1E
-main=./rootfs/coreutils/ls.luamain
+13
+../tools//liblua.so@sourcemap
+17
+main=./coreutils/ls.luamain
 15B1
 local function write(fd, data)
     local err = syscall("write", fd, data)
