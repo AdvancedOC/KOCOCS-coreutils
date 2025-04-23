@@ -16,9 +16,7 @@ end
 local inFile = io.open(input, "r")
 local outFile = io.open(output, "w")
 
-while true do
-  local chunk = inFile:read()
-  assert(outFile:write(chunk))
-  -- to not get too long without yielding
-  coroutine.yield()
-end
+local data = inFile:read("a")
+assert(outFile:write(data))
+
+return 0
