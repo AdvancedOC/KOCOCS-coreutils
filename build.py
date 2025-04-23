@@ -11,9 +11,9 @@ os.mkdir("./rootfs/build")
 def build(package):
     for f in os.listdir(f"./rootfs/{package}"):
         if f.endswith(".lua"):
-            name = f.removesuffix(".lua");
+            name = f.removesuffix(".lua")
             os.system(f"lua ./tools/luac.lua -o ./rootfs/build/{name}.o -m main ./rootfs/{package}/{f}")
-            os.system(f"lua ./tools/ld.lua -o ./rootfs/build/{name} ./rootfs/build/{name}.o -l/lib/liblua.so")
+            os.system(f"lua ./tools/ld.lua -o ./rootfs/build/{name} ./rootfs/build/{name}.o -l/lib/liblua.so" + (" -l/lib/libkelp.so" if name == "klc" else ""))
 build("coreutils")
 build("util")
 build("extra")
@@ -34,6 +34,7 @@ def build_rootfs():
     os.system("cp basicTTY.lua ./rootfs/rootfs/bin/")
     os.system("cp repl.lua ./rootfs/rootfs/")
     os.system("cp lib/liblua.so ./rootfs/rootfs/lib")
+    os.system("cp lib/libkelp.so ./rootfs/rootfs/lib")
     os.system("cp lib/libkelp.so ./rootfs/rootfs/lib")
     os.system("cp ./rootfs/rootfs/bin/kterm ./rootfs/rootfs/bin/sh")
 

@@ -1,7 +1,7 @@
 KELPv1
-E@sourcemap
-1C
-main=./rootfs/util/login.luamain
+E@deps
+E
+/lib/liblua.somain
 14DA
 local function listen(f, id)
     local err, eid = syscall("listen", f, id)
@@ -217,6 +217,6 @@ while true do
 
     coroutine.yield()
 end
-@deps
-E
-/lib/liblua.so
+@sourcemap
+1C
+main=./rootfs/util/login.lua
