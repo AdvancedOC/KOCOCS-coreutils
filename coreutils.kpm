@@ -21,6 +21,7 @@
         ["/bin/cp"] = "build/cp",
         ["/bin/klc"] = "build/klc",
         ["/bin/umount"] = "build/umount",
+        ["/bin/flash"] = "build/flash",
     },
     extraFiles = {},
     keepFiles = {},
