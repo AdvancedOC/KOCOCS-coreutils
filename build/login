@@ -4,7 +4,7 @@ E
 /lib/liblua.so@sourcemap
 1C
 main=./rootfs/util/login.luamain
-14DA
+14B9
 local function listen(f, id)
     local err, eid = syscall("listen", f, id)
     return eid, err
@@ -94,7 +94,6 @@ do
     end
 end
 
-assert(logPid, "log pid failed")
 syscall("pwait", logPid)
 
 local tty = _K.tty.create(_OS.component.gpu, _OS.component.screen)
