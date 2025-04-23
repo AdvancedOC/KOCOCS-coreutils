@@ -48,6 +48,6 @@ end
 local ok, err = xpcall(main, debug.traceback, arg);
 if not ok then
     write(2, err .. "\n");
-    assert(os.exit(1));
+    os.exit(1);
 end
-assert(os.exit(err or 0));
+os.exit(err or 0);

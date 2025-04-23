@@ -2,10 +2,6 @@ local function write(fd, data)
     local err = syscall("write", fd, data)
     return err == nil, err
 end
-local function exit(status)
-    -- WILL NEVER RETURN IF IT WORKED
-    local err = syscall("exit", status)
-    return err == nil, err
-end
+
 write(0, "\x1b[2J");
-assert(exit(0));
+os.exit(0);
