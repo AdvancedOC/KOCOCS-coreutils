@@ -186,6 +186,11 @@ while true do
                 local t = lib.sub(inputBuffer, -1)
                 tty:unwrite(t)
                 inputBuffer = lib.sub(inputBuffer, 1, -2)
+            elseif _K.keyboard.isKeyDown(_K.keyboard.keys.d) and _K.keyboard.isControlDown() then
+                clear(stdin)
+                write(stdin, inputBuffer .. string.char(4))
+                tty:write('\n')
+                inputBuffer = nil
             elseif not isEscape(char) then
                 tty:write(lib.char(char))
                 inputBuffer = inputBuffer .. lib.char(char)
