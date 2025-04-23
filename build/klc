@@ -1,5 +1,8 @@
 KELPv1
-E@sourcemap
+E@deps
+1E
+/lib/liblua.so
+/lib/libkelp.so@sourcemap
 1F
 main=./rootfs/coreutils/klc.luamain
 6E4
@@ -63,7 +66,4 @@ if not ok then
     write(2, err .. "\n");
     assert(os.exit(1));
 end
-assert(os.exit(err or 0));@deps
-1E
-/lib/liblua.so
-/lib/libkelp.so
+assert(os.exit(err or 0));

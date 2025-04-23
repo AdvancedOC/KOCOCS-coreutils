@@ -1,5 +1,7 @@
 KELPv1
-E@sourcemap
+E@deps
+E
+/lib/liblua.so@sourcemap
 1E
 main=./rootfs/extra/kfetch.luamain
 1166
@@ -124,6 +126,4 @@ if not ok then
     write(2, err .. "\n");
     assert(exit(1));
 end
-assert(exit(err or 0));@deps
-E
-/lib/liblua.so
+assert(exit(err or 0));
