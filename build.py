@@ -24,7 +24,7 @@ def build(package):
         if f.endswith(".lua"):
             name = f.removesuffix(".lua")
             assert(os.system(f"lua {tools}/luac.lua -o ./build/{name}.o -m main ./{package}/{f}") == 0)
-            assert(os.system(f"lua {tools}/ld.lua -o ./build/{name} ./build/{name}.o -l{libs}/liblua.so" + (f" -l{libs}/libkelp.so" if name == "klc" else "")) == 0)
+            assert(os.system(f"lua {tools}/ld.lua -o ./build/{name} ./build/{name}.o -l/lib/liblua.so" + (f" -l/lib/libkelp.so" if name == "klc" else "")) == 0)
 build("coreutils")
 build("util")
 build("extra")

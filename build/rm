@@ -1,7 +1,7 @@
 KELPv1
 E@deps
-13
-../tools//liblua.so@sourcemap
+E
+/lib/liblua.so@sourcemap
 17
 main=./coreutils/rm.luamain
 6AA
