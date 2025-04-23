@@ -131,6 +131,7 @@ local function myBeloved()
                 }
             }));
             syscall("pawait", child); -- Shouldnt exit?
+            syscall("pexit", child);
             state = "username";
         end
     end
