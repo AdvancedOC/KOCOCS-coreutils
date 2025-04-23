@@ -1,7 +1,7 @@
 {
     name = "coreutils",
     author = "calion",
-    version = "0.0.3",
+    version = "0.0.4",
     files = {
         ["/bin/ls"] = "build/ls",
         ["/bin/cat"] = "build/cat",
