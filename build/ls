@@ -93,18 +93,18 @@ local function main(argv)
                 if userRW == 0 then
                     perms = perms .. "--";
                 elseif userRW == 1 then
-                    perms = perms .. "r-";
-                elseif userRW == 2 then
                     perms = perms .. "-w";
+                elseif userRW == 2 then
+                    perms = perms .. "r-";
                 else
                     perms = perms .. "rw";
                 end
                 if groupRW == 0 then
                     perms = perms .. "--";
                 elseif groupRW == 1 then
-                    perms = perms .. "r-";
-                elseif groupRW == 2 then
                     perms = perms .. "-w";
+                elseif groupRW == 2 then
+                    perms = perms .. "r-";
                 else
                     perms = perms .. "rw";
                 end
