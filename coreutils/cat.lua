@@ -18,8 +18,16 @@ local function main(argv)
         if io.exists(path) then
             local type = io.ftype(path)
             if type == "file" then
-                local file = assert(io.open(path, "r"));
-                write(0, file:read("*all"));
+                local file = assert(io.open(path, "rb"));
+                while true do
+                    local data = file:read(64);
+                    if data == nil then
+                        goto escape
+                    end
+                    write(0, tostring(data));
+                    coroutine.yield();
+                end
+                ::escape::
                 file:close();
             elseif type == "directory" then
                 write(2, string.format("cat: %s: Is a directory", path));
@@ -28,6 +36,7 @@ local function main(argv)
             write(2, string.format("cat: %s: No such file or directory\n", path));
         end
         ::continue::
+        coroutine.yield();
     end
 end
 
