@@ -17,7 +17,7 @@ local function main(argv)
     local bold = false;
     if io.exists(entry) then
         local file = assert(io.open(entry, "rb"));
-        write(0, "\x1b[90m");
+        write(0, "\x1b[38;2;200;200;200m");
         while true do
             local data = file:read(64);
             if data == nil then
@@ -27,7 +27,7 @@ local function main(argv)
                 local char = string.sub(data, i, i);
                 if char == "*" then
                     if bold then
-                        write(0, "\x1b[90m");
+                        write(0, "\x1b[38;2;200;200;200m");
                         bold = false;
                     else
                         write(0, "\x1b[97m");
