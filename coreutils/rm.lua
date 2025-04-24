@@ -8,20 +8,24 @@ local function remove(proc, path)
     return err == nil, err
 end
 
-local function rm(path)
+local function rm(path, arg_r)
     local type = io.ftype(path);
     if type == "file" then
         assert(os.remove(path))
     elseif type == "directory" then
-        if #io.list(path) == 0 then
-            assert(os.remove(path))
-        else
-            for _, file in ipairs(io.list(path)) do
-                local filepath = path .. "/" .. file;
-                coroutine.yield();
-                rm(filepath);
+        if arg_r then
+            if #io.list(path) == 0 then
+                assert(os.remove(path))
+            else
+                for _, file in ipairs(io.list(path)) do
+                    local filepath = path .. "/" .. file;
+                    coroutine.yield();
+                    rm(filepath);
+                end
+                assert(os.remove(path))
             end
-            assert(os.remove(path))
+        else
+            write(2, string.format("rm: cannot remove '%s': Is a directory\n"))
         end
     end
 end
@@ -50,7 +54,7 @@ local function main(argv)
     end
 
     for i = 1, #argv do
-        rm(argv[i]);
+        rm(argv[i], arg_r);
     end
 end
 
