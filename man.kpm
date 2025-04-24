@@ -1,0 +1,12 @@
+{
+    name = "man",
+    author = "calion",
+    version = "0.0.1",
+    files = {
+        ["/bin/man"] = "build/man",
+        ["/usr/man/cat"] = "pages/cat",
+    },
+    extraFiles = {},
+    keepFiles = {},
+    dependencies = { "coreutils" },
+}

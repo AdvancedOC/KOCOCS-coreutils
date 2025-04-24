@@ -1,0 +1,23 @@
+*LS*
+
+*NAME*
+        LS - list directory contents
+
+*SYNOPSIS*
+        ls [OPTION]... [FILE]...
+
+*DESCRIPTION*
+        List information about the FILEs (the current directory by default).
+        *-a*
+                do not ignore entries starting with .
+        *-h*
+                with -l print sizes like 1K 234M 2G etc.
+        *-l*
+                use a long listing format
+*AUTHOR*
+        Author.
+
+*REPORTING BUGS*
+        https://github.com/AdvancedOC/KOCOCS-coreutils
+
+*KOCOS Coreutils*

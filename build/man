@@ -1,0 +1,63 @@
+KELPv1
+E@deps
+E
+/lib/liblua.so@sourcemap
+14
+main=./extra/man.luamain
+5D8
+local function write(fd, data)
+    local err = syscall("write", fd, data)
+    return err == nil, err
+end
+
+local function read(fd, len)
+    local err, data = syscall("read", fd, len)
+    return data, err
+end
+
+local function main(argv)
+    if #argv ~= 1 then
+        write(0, "What manual page do you want?\nFor example, try 'man man'.\n");
+        return 1;
+    end
+    local entry = "/usr/man/" ..argv[1];
+    local bold = false;
+    if io.exists(entry) then
+        local file = assert(io.open(entry, "rb"));
+        write(0, "\x1b[90m");
+        while true do
+            local data = file:read(64);
+            if data == nil then
+                goto escape
+            end
+            for i = 1, #data do
+                local char = string.sub(data, i, i);
+                if char == "*" then
+                    if bold then
+                        write(0, "\x1b[90m");
+                        bold = false;
+                    else
+                        write(0, "\x1b[97m");
+                        bold = true;
+                    end
+                else
+                    write(0, char);
+                end
+            end
+            coroutine.yield();
+        end
+        ::escape::
+        file:close();
+        write(0, "\x1b[0m\n");
+    else
+        write(2, string.format("No manual entry for %s\n", entry));
+        return 1;
+    end
+end
+
+local ok, err = xpcall(main, debug.traceback, arg);
+if not ok then
+    write(2, err .. "\n");
+    os.exit(1);
+end
+os.exit(err or 0);
