@@ -174,6 +174,7 @@ local function main(argv)
             if type ~= "file" then
                 write(0, argv[i] .. ":\n");
                 do_thing(argv[i], arg_l, arg_a, arg_h);
+                coroutine.yield();
             end
         end
     end

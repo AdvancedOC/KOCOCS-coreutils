@@ -18,6 +18,7 @@ local function rm(path)
         else
             for _, file in ipairs(io.list(path)) do
                 local filepath = path .. "/" .. file;
+                coroutine.yield();
                 rm(filepath);
             end
             assert(os.remove(path))

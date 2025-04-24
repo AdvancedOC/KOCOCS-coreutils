@@ -4,7 +4,7 @@ E
 /lib/liblua.so@sourcemap
 17
 main=./coreutils/rm.luamain
-616
+639
 local function write(fd, data)
     local err = syscall("write", fd, data)
     return err == nil, err
@@ -25,6 +25,7 @@ local function rm(path)
         else
             for _, file in ipairs(io.list(path)) do
                 local filepath = path .. "/" .. file;
+                coroutine.yield();
                 rm(filepath);
             end
             assert(os.remove(path))
