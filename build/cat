@@ -4,7 +4,7 @@ E
 /lib/liblua.so@sourcemap
 18
 main=./coreutils/cat.luamain
-541
+543
 local function write(fd, data)
     local err = syscall("write", fd, data)
     return err == nil, err
@@ -27,7 +27,7 @@ local function main(argv)
             if type == "file" then
                 local file = assert(io.open(path, "rb"));
                 while true do
-                    local data = file:read(64);
+                    local data = file:read(4096);
                     if data == nil then
                         goto escape
                     end

@@ -20,7 +20,7 @@ local function main(argv)
             if type == "file" then
                 local file = assert(io.open(path, "rb"));
                 while true do
-                    local data = file:read(64);
+                    local data = file:read(4096);
                     if data == nil then
                         goto escape
                     end
