@@ -4,7 +4,7 @@ E
 /lib/liblua.so@sourcemap
 15
 main=./util/login.luamain
-14AB
+1507
 local function listen(f, id)
     local err, eid = syscall("listen", f, id)
     return eid, err
@@ -104,7 +104,7 @@ end
 
 listen(function(name, ...)
     if name == "event_err" then
-        KOCOS.logAll(name, ...)
+        _K.logAll(name, ...)
     end
 end)
 
@@ -113,6 +113,7 @@ local function myBeloved()
     local user;
     local password;
 
+    write(stdout, string.format("KOCOS %s (tty1)\n\n", string.gsub(_KVERSION, "KOCOS ", "")));
     while true do
         if state == "username" then
             write(stdout, string.format("%s login: ", hostname()));

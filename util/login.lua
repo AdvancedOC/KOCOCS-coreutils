@@ -97,7 +97,7 @@ end
 
 listen(function(name, ...)
     if name == "event_err" then
-        KOCOS.logAll(name, ...)
+        _K.logAll(name, ...)
     end
 end)
 
@@ -106,6 +106,7 @@ local function myBeloved()
     local user;
     local password;
 
+    write(stdout, string.format("KOCOS %s (tty1)\n\n", string.gsub(_KVERSION, "KOCOS ", "")));
     while true do
         if state == "username" then
             write(stdout, string.format("%s login: ", hostname()));
