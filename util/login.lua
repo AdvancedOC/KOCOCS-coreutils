@@ -68,8 +68,8 @@ local function hostname(hostname)
 end
 
 local function login(user, ring, password)
-    local err, x = syscall("login", user, ring, password)
-    return x, err
+    local err = syscall("login", user, ring, password)
+    return err == nil, err
 end
 
 local tty = _K.tty.create(_OS.component.gpu, _OS.component.screen)
@@ -122,17 +122,21 @@ local function myBeloved()
             password = readLine();
             write(stdout, "\x1b[0m");
 
-            login(user, 0, password);
-            local child = assert(pspawn("/bin/sh", {
-                args = {},
-                fdMap = {
-                    [0] = stdout,
-                    [1] = stdin,
-                    [2] = stdout,
-                }
-            }));
-            syscall("pawait", child); -- Shouldnt exit?
-            syscall("pexit", child);
+            local _, err = login(user, 0, password);
+            if err then
+                write(stdout, string.format("Login failed: %s\n", err));
+            else
+                local child = assert(pspawn("/bin/sh", {
+                    args = {},
+                    fdMap = {
+                        [0] = stdout,
+                        [1] = stdin,
+                        [2] = stdout,
+                    }
+                }));
+                syscall("pawait", child); -- Shouldnt exit?
+                syscall("pexit", child);
+            end
             state = "username";
         end
     end
