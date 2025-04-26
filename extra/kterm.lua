@@ -44,8 +44,9 @@ if arg[1] == "-c" then
             args = command
         }));
         syscall("pawait", child);
+        local status = assert(pinfo(child)).status
         pexit(child);
-        os.exit();
+        os.exit(status);
     else
         write(2, string.format("%s doesnt exists in search path\n", thingy));
         os.exit(1);
