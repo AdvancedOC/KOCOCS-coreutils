@@ -12,7 +12,12 @@ local function main(argv)
     for i = 1, #argv do
         local path = argv[i];
         if path == "-" then
-            write(0, assert(read(0, math.huge)));
+            while true do
+                local line = read(1, 4096)
+                if not line then break end
+                write(0, line)
+                coroutine.yield()
+            end
             goto continue;
         end
         if io.exists(path) then
