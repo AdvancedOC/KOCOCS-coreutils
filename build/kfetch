@@ -4,7 +4,7 @@ E
 /lib/liblua.so@sourcemap
 17
 main=./extra/kfetch.luamain
-110E
+110D
 local function write(fd, data)
     local err = syscall("write", fd, data)
     return err == nil, err
@@ -71,8 +71,8 @@ local function main(_)
     local memUsed = info.memTotal - info.memFree
     table.insert(data, string.format("Memory: %s / %s (%.2f%%)", string.memformat(memUsed), string.memformat(info.memTotal), memUsed / info.memTotal * 100))
     table.insert(data, string.format("Uptime: %s:%s:%s.%s", hours, mins, secs, ms))
-    table.insert(data, "Terminal: " .. os.getenv("TERM") or "unknown")
-    table.insert(data, "Shell: " .. os.getenv("SHELL") or "unknown")
+    table.insert(data, "Terminal: " .. (os.getenv("TERM") or "unknown"))
+    table.insert(data, "Shell: " .. (os.getShell() or "unknown"))
     table.insert(data, "Boot: " .. info.boot:sub(1, 6) .. "...")
     table.insert(data, "Architecture: " .. info.arch)
     table.insert(data, "Components: " .. #assert(clist(true)))
