@@ -9,6 +9,14 @@ local function read(fd, len)
 end
 
 local function main(argv)
+    if #argv == 0 then
+        while true do
+            local line = read(1, 4096)
+            if not line then break end
+            write(0, line)
+            coroutine.yield()
+        end
+    end
     for i = 1, #argv do
         local path = argv[i];
         if path == "-" then
