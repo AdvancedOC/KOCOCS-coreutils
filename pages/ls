@@ -1,7 +1,7 @@
-*LS*
-
+*LS~CUser Commands
+*
 *NAME*
-        LS - list directory contents
+        ls - list directory contents
 
 *SYNOPSIS*
         ls [OPTION]... [FILE]...
@@ -18,6 +18,6 @@
         Author.
 
 *REPORTING BUGS*
-        https://github.com/AdvancedOC/KOCOCS-coreutils
+        ^Lissues^Lhttps://github.com/AdvancedOc/KOCOS-Coreutils^L
 
 *KOCOS Coreutils*

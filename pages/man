@@ -1,5 +1,5 @@
-~CMAN
-
+*Name~CCategory
+*
 *NAME*
         man - view a man page
 
@@ -7,30 +7,29 @@
         man ENTRY
 
 *DESCRIPTION*
-        \@Rescaping
-        @bblack@0
-        @Rred@0
-        @Ggreen@0
-        @Yyellow@0
-        @Bblue@0
-        @Mmagenta@0
-        @Ccyan@0
-        @Wwhite@0
-        Bright:*
-        @bblack@0
-        @Rred@0
-        @Ggreen@0
-        @Yyellow@0
-        @Bblue@0
-        @Mmagenta@0
-        @Ccyan@0
-        @Wwhite@0*
+        Will display a man page located in /usr/man or MANPATH env variable
+        If MANPAGER env variable is defined it will invoke that instead
+        MANPAGER is useful if you want to have it display like the less command
+        
+        If MANPAGER is not defined man will try its best to display it
+        Links cannot be displayed well and cannot be interacted with
+        \~C, \~R and \^L currently do not support modifiers inside of them
+
+        Heres the modifiers you can use in man pages. You can also find these in OS_CONVENTIONS.md:
+
+        \@b = @bblack@0 (black)    \@R = @Rred@0    \@G = @Ggreen@0    \@Y = @Yyellow@0    \@B = @Bblue@0
+        \@M = @Mmagenta@0          \@C = @Ccyan@0   \@W = @Wwhite@0    \@0 = reset
+        
+        With \* = Bright*
+        \@b = @bblack@0            \@R = @Rred@0    \@G = @Ggreen@0    \@Y = @Yyellow@0    \@B = @Bblue@0
+        \@M = @Mmagenta@0          \@C = @Ccyan@0   \@W = @Wwhite@0*
+        
         *@RR@YA@GI@BN@MB@bO@CW@0*
-        Slash: \\
-~CCentered
-@BLeft@0
-@R~RRight
-@0
+        Escape with \\: \\\@M
+        \~C = ~CCentered
+        \~R = ~RRight
+        \^Ltitle\^Lurl\^L = ^Ltitle^Lurl^L (links)
+
 *AUTHOR*
         Calion.
 
