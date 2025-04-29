@@ -1,0 +1,40 @@
+~CMAN
+
+*NAME*
+        man - view a man page
+
+*SYNOPSIS*
+        man ENTRY
+
+*DESCRIPTION*
+        \@Rescaping
+        @bblack@0
+        @Rred@0
+        @Ggreen@0
+        @Yyellow@0
+        @Bblue@0
+        @Mmagenta@0
+        @Ccyan@0
+        @Wwhite@0
+        Bright:*
+        @bblack@0
+        @Rred@0
+        @Ggreen@0
+        @Yyellow@0
+        @Bblue@0
+        @Mmagenta@0
+        @Ccyan@0
+        @Wwhite@0*
+        *@RR@YA@GI@BN@MB@bO@CW@0*
+        Slash: \\
+~CCentered
+@BLeft@0
+@R~RRight
+@0
+*AUTHOR*
+        Calion.
+
+*REPORTING BUGS*
+        ^Lissues^Lhttps://github.com/AdvancedOc/KOCOS-Coreutils^L
+
+*KOCOS Coreutils*
